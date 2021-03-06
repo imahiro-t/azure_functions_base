@@ -34,7 +34,7 @@ defmodule AzureFunctionsBase.Logger do
   """
   def debug(message) do
     if log?(:debug) do
-      log("[DEBUG] #{message |> log_message}")
+      log("#{timestamp()} [DEBUG] #{message |> log_message}")
     end
     message
   end
@@ -44,7 +44,7 @@ defmodule AzureFunctionsBase.Logger do
   """
   def info(message) do
     if log?(:info) do
-      log("[INFO] #{message |> log_message}")
+      log("#{timestamp()} [INFO] #{message |> log_message}")
     end
     message
   end
@@ -54,7 +54,7 @@ defmodule AzureFunctionsBase.Logger do
   """
   def warn(message) do
     if log?(:warn) do
-      log("[WARN] #{message |> log_message}")
+      log("#{timestamp()} [WARN] #{message |> log_message}")
     end
     message
   end
@@ -64,7 +64,7 @@ defmodule AzureFunctionsBase.Logger do
   """
   def error(message) do
     if log?(:error) do
-      log("[ERROR] #{message |> log_message}")
+      log("#{timestamp()} [ERROR] #{message |> log_message}")
     end
     message
   end
@@ -74,6 +74,10 @@ defmodule AzureFunctionsBase.Logger do
   """
   def logs() do
     Agent.get_and_update(__MODULE__, fn state -> {state, %{state | logs: []}} end).logs
+  end
+
+  defp timestamp do
+    DateTime.utc_now |> to_string
   end
 
   defp log_message(message) when is_binary(message), do: message
