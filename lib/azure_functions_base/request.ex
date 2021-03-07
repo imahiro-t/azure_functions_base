@@ -28,7 +28,10 @@ defmodule AzureFunctionsBase.Request do
   def to_request(event) do
     %{"Data" => %{"req" => request}, "Metadata" => metadata} = event
     %__MODULE__{
-      method: request |> Map.get("Method") |> String.downcase |> String.to_atom,
+      method: case request |> Map.get("Method") do
+        nil -> nil
+        method -> method |> String.downcase |> String.to_atom
+      end,
       url: request |> Map.get("Url"),
       headers: metadata |> Map.get("Headers"),
       body: request |> Map.get("Body"),

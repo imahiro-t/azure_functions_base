@@ -9,7 +9,7 @@ The package can be installed by adding `azure_function_base` to your list of dep
 ```elixir
 def deps do
   [
-    {:azure_function_base, "~> 0.1.0"}
+    {:azure_function_base, "~> 0.1.1"}
   ]
 end
 ```
@@ -43,12 +43,12 @@ end
 2. Create files for Azure Functions.
 
 ```
-$ handle_moduler=Upcase
+$ handle_module=Upcase
 $ method_name=upcase
 $ docker run -d -it --rm --name elx erintheblack/elixir-azure-functions-builder:1.10.4
 $ docker cp lib elx:/tmp
 $ docker cp mix.exs elx:/tmp
-$ docker exec elx /bin/bash -c "mix deps.get; MIX_ENV=prod mix azure_functions.release ${handle_moduler} ${method_name} 'get post'"
+$ docker exec elx /bin/bash -c "mix deps.get; MIX_ENV=prod mix azure_functions.release ${handle_module} ${method_name} 'get post'"
 $ docker cp elx:/tmp/_build_az_func .
 $ docker stop elx
 ```
