@@ -1,7 +1,7 @@
 defmodule AzureFunctionsBase do
   @moduledoc """
   This is azure functions base.
-  Use AzureFunctionsBase and implement `handle(event, context)` function
+  Use AzureFunctionsBase and implement `handle(request, event, context)` function
   """
 
   alias AzureFunctionsBase.Request
