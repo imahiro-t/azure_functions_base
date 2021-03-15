@@ -9,7 +9,7 @@ The package can be installed by adding `azure_function_base` to your list of dep
 ```elixir
 def deps do
   [
-    {:azure_function_base, "~> 0.1.1"}
+    {:azure_function_base, "~> 0.1.2"}
   ]
 end
 ```
