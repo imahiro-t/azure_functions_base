@@ -18,12 +18,13 @@ defmodule Mix.Tasks.AzureFunctions.Release do
 
   use Mix.Task
 
+  @build_dir "_build_az_func"
+
   @doc """
   Create files to publish Azure Functions.
   """
   @impl Mix.Task
   def run([handler_module]) do
-    build_dir = "_build_az_func"
     app_name = app_name()
     bootstrap = bootstrap(app_name)
     host_json = host_json(app_name)
@@ -36,18 +37,18 @@ defmodule Mix.Tasks.AzureFunctions.Release do
     Mix.Shell.cmd("chmod +x ./_build/#{env}/rel/#{app_name}/releases/*/elixir", &IO.puts/1)
     Mix.Shell.cmd("chmod +x ./_build/#{env}/rel/#{app_name}/erts-*/bin/erl", &IO.puts/1)
     Mix.Shell.cmd("chmod +x ./_build/#{env}/rel/#{app_name}/bootstrap", &IO.puts/1)
-    Mix.Shell.cmd("rm -f -R ./#{build_dir}/*", &IO.puts/1)
-    Mix.Shell.cmd("mkdir -p ./#{build_dir}", &IO.puts/1)
-    Mix.Shell.cmd("cp -a ./_build/#{env}/rel/#{app_name} ./#{build_dir}/", &IO.puts/1)
-    File.write("./#{build_dir}/host.json", host_json)
-    File.write("./#{build_dir}/local.settings.json", local_setting_json)
+    Mix.Shell.cmd("rm -f -R ./#{@build_dir}/*", &IO.puts/1)
+    Mix.Shell.cmd("mkdir -p ./#{@build_dir}", &IO.puts/1)
+    Mix.Shell.cmd("cp -a ./_build/#{env}/rel/#{app_name} ./#{@build_dir}/", &IO.puts/1)
+    File.write("./#{@build_dir}/host.json", host_json)
+    File.write("./#{@build_dir}/local.settings.json", local_setting_json)
   end
 
   def run([handler_module, method_name, method_types]) do
     function_json = function_json(~w/#{method_types}/)
     run([handler_module])
-    Mix.Shell.cmd("mkdir -p ./#{build_dir}/#{method_name}", &IO.puts/1)
-    File.write("./#{build_dir}/#{method_name}/function.json", function_json)
+    Mix.Shell.cmd("mkdir -p ./#{@build_dir}/#{method_name}", &IO.puts/1)
+    File.write("./#{@build_dir}/#{method_name}/function.json", function_json)
   end
 
   defp app_name do
