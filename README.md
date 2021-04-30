@@ -34,8 +34,8 @@ defmodule Upcase do
     Logger.info(event)
     Logger.info(context)
     Logger.info(request)
-    {:ok, Response.to_response(body |> Jason.encode! |> String.upcase, %{}, 200)}
-    # {:ok, body |> Jason.encode! |> String.upcase}
+    {:ok, Response.to_response(body |> String.upcase, %{}, 200)}
+    # {:ok, body |> String.upcase}
   end
 end
 ```
