@@ -7,6 +7,12 @@ Base library to create Elixir Azure Functions
 The package can be installed by adding `azure_function_base` to your list of dependencies in `mix.exs`:
 
 ```elixir
+def application do
+  [
+    mod: {AzureFunctionsBase.Application, []}
+  ]
+end
+
 def deps do
   [
     {:azure_function_base, "~> 0.1.2"}
@@ -34,8 +40,8 @@ defmodule Upcase do
     Logger.info(event)
     Logger.info(context)
     Logger.info(request)
-    {:ok, Response.to_response(body |> Jason.encode! |> String.upcase, %{}, 200)}
-    # {:ok, body |> Jason.encode! |> String.upcase}
+    {:ok, Response.to_response(body |> String.upcase, %{}, 200)}
+    # {:ok, body |> String.upcase}
   end
 end
 ```
