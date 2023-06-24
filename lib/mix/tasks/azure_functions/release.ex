@@ -2,12 +2,14 @@ defmodule Mix.Tasks.AzureFunctions.Release do
   @moduledoc """
   Create files to publish Azure Functions.
 
-  Run this task inside Docker image `elixir:1.10.4-slim`.
+  Run this task inside Docker image `mcr.microsoft.com/azure-functions/base:4.22.0`.
+
+  Docker image `erintheblack/elixir-azure-functions-builder:1.10.3` is prepared to build.
 
   ## How to build
 
   ```
-  $ docker run -d -it --rm --name elx erintheblack/elixir-azure-functions-builder:1.10.4
+  $ docker run -d -it --rm --name elx erintheblack/elixir-azure-functions-builder:1.10.3
   $ docker cp mix.exs elx:/tmp
   $ docker cp lib elx:/tmp
   $ docker exec elx /bin/bash -c "mix deps.get; MIX_ENV=prod mix azure_functions.release ${handle_moduler} ${method_name} 'post put'"
@@ -78,7 +80,7 @@ bin/#{app_name} start
   },
   "extensionBundle": {
     "id": "Microsoft.Azure.Functions.ExtensionBundle",
-    "version": "[1.*, 2.0.0)"
+    "version": "[3.*, 4.0.0)"
   },
   "customHandler": {
     "description": {
