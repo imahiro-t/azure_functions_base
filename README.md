@@ -15,7 +15,7 @@ end
 
 def deps do
   [
-    {:azure_function_base, "~> 0.1.2"}
+    {:azure_function_base, "~> 0.1.3"}
   ]
 end
 ```
@@ -51,7 +51,7 @@ end
 ```
 $ handle_module=Upcase
 $ method_name=upcase
-$ docker run -d -it --rm --name elx erintheblack/elixir-azure-functions-builder:1.10.4
+$ docker run -d -it --rm --name elx erintheblack/elixir-azure-functions-builder:1.10.3
 $ docker cp lib elx:/tmp
 $ docker cp mix.exs elx:/tmp
 $ docker exec elx /bin/bash -c "mix deps.get; MIX_ENV=prod mix azure_functions.release ${handle_module} ${method_name} 'get post'"
